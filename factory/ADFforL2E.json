@@ -1,0 +1,9 @@
+{
+	"name": "ADFforL2E",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "026b2150-9db4-4a3b-80f7-5f68ccec9ced",
+		"tenantId": "3ef8ea96-9fc7-440f-9b92-cd2d5c04553b"
+	}
+}

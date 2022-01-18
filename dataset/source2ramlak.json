@@ -1,0 +1,51 @@
+{
+	"name": "source2ramlak",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "rl",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"sourceFolder": {
+				"type": "string"
+			},
+			"sorceFile": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().sorceFile",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().sourceFolder",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Customer_Id",
+				"type": "String"
+			},
+			{
+				"name": "Customer Name",
+				"type": "String"
+			},
+			{
+				"name": "Customer Country",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

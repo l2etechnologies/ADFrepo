@@ -1,0 +1,41 @@
+{
+	"name": "tablesalesind",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "l2edatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "saledate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "saleitem",
+				"type": "char"
+			},
+			{
+				"name": "country",
+				"type": "char"
+			},
+			{
+				"name": "quantity",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "sourcefilename",
+				"type": "char"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "salesindia2022"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

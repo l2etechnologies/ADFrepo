@@ -1,0 +1,43 @@
+{
+	"name": "Mainpipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "transformemployeedata",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "src_tgt_copy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "transformemployeedata",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "src_tgt_copy",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "src_tgt_copy",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-12-26T11:18:51Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

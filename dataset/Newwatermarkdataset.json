@@ -1,0 +1,33 @@
+{
+	"name": "Newwatermarkdataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "l2edatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Emp_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Emp_Name",
+				"type": "char"
+			},
+			{
+				"name": "LastModifyTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "emp_source"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

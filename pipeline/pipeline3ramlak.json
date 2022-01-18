@@ -1,0 +1,85 @@
+{
+	"name": "pipeline3ramlak",
+	"properties": {
+		"activities": [
+			{
+				"name": "copytarget1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "targetsource",
+						"value": "source//Customers.csv"
+					},
+					{
+						"name": "target",
+						"value": "target//"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "source3ramlak",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "target3ramlak",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"target": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ram"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-01-12T09:06:21Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

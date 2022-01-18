@@ -1,0 +1,34 @@
+{
+	"name": "tablesalesbaddataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "l2edatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "saledate",
+				"type": "varchar"
+			},
+			{
+				"name": "saleitem",
+				"type": "varchar"
+			},
+			{
+				"name": "country",
+				"type": "varchar"
+			},
+			{
+				"name": "quantity",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "salesindia2022bad"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

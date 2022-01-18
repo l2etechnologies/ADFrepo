@@ -1,0 +1,69 @@
+{
+	"name": "tgt_customer",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "target",
+				"fileSystem": "practice"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "198",
+				"type": "String"
+			},
+			{
+				"name": "Donald",
+				"type": "String"
+			},
+			{
+				"name": "OConnell",
+				"type": "String"
+			},
+			{
+				"name": "DOCONNEL",
+				"type": "String"
+			},
+			{
+				"name": "650.507.9833",
+				"type": "String"
+			},
+			{
+				"name": "21-JUN-07",
+				"type": "String"
+			},
+			{
+				"name": "SH_CLERK",
+				"type": "String"
+			},
+			{
+				"name": "2600",
+				"type": "String"
+			},
+			{
+				"name": " - ",
+				"type": "String"
+			},
+			{
+				"name": "124",
+				"type": "String"
+			},
+			{
+				"name": "50",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

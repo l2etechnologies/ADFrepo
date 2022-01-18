@@ -1,0 +1,45 @@
+{
+	"name": "SCD2DimensionTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "l2edatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Seqkey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EMP_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EName",
+				"type": "char"
+			},
+			{
+				"name": "Designation",
+				"type": "char"
+			},
+			{
+				"name": "WorkLocation",
+				"type": "char"
+			},
+			{
+				"name": "isActive",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "SCD2EmpDimension"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

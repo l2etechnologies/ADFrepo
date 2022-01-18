@@ -1,0 +1,58 @@
+{
+	"name": "FactTableLoad",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Factsource",
+						"type": "DatasetReference"
+					},
+					"name": "Factsource"
+				},
+				{
+					"dataset": {
+						"referenceName": "SCD2DimensionTable",
+						"type": "DatasetReference"
+					},
+					"name": "DimensionTable"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "TargetFactdataset",
+						"type": "DatasetReference"
+					},
+					"name": "TargetFact"
+				},
+				{
+					"dataset": {
+						"referenceName": "FailedRecords",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Lookup1"
+				},
+				{
+					"name": "Select1"
+				},
+				{
+					"name": "Filter1"
+				},
+				{
+					"name": "Select2"
+				},
+				{
+					"name": "ConditionalSplit1"
+				}
+			],
+			"script": "source(output(\n\t\tEmp_ID as integer,\n\t\tProduct_ID as string,\n\t\tSale_Date as date,\n\t\tQuantity as integer,\n\t\tSales_Amount as integer\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> Factsource\nsource(output(\n\t\tSeqkey as integer,\n\t\tEMP_ID as integer,\n\t\tEName as string,\n\t\tDesignation as string,\n\t\tWorkLocation as string,\n\t\tisActive as integer\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DimensionTable\nFactsource, Select1 lookup(Emp_ID == D_EMP_ID,\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> Lookup1\nFilter1 select(mapColumn(\n\t\tSeqkey,\n\t\tD_EMP_ID = EMP_ID,\n\t\tD_EName = EName,\n\t\tD_Designation = Designation,\n\t\tD_WorkLocation = WorkLocation,\n\t\tD_isActive = isActive\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nDimensionTable filter(isActive == 1) ~> Filter1\nLookup1 select(mapColumn(\n\t\tEmp_ID,\n\t\tProduct_ID,\n\t\tSale_Date,\n\t\tQuantity,\n\t\tSales_Amount,\n\t\tSeqkey\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select2\nSelect2 split(not(isNull(Seqkey)),\n\tisNull(Seqkey),\n\tdisjoint: false) ~> ConditionalSplit1@(ExistingEmp, NotExisint)\nConditionalSplit1@ExistingEmp sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tSeqkey as integer,\n\t\tEMP_ID as integer,\n\t\tProductId as string,\n\t\tSaledate as date,\n\t\tQuantity as integer,\n\t\tSales_Amount as integer\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tSeqkey,\n\t\tEMP_ID = Emp_ID,\n\t\tProductId = Product_ID,\n\t\tSaledate = Sale_Date,\n\t\tQuantity,\n\t\tSales_Amount\n\t)) ~> TargetFact\nConditionalSplit1@NotExisint sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tCustomer_Id as string,\n\t\t{Customer Name} as string,\n\t\t{Customer Country} as string\n\t),\n\tpartitionFileNames:['Failedrecords.csv'],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> sink1"
+		}
+	}
+}

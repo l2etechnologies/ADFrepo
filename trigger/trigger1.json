@@ -1,0 +1,25 @@
+{
+	"name": "trigger1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "src_tgt_copy",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 30,
+				"startTime": "2021-12-24T08:03:00",
+				"endTime": "2021-12-24T18:31:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}
