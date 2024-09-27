@@ -1,0 +1,23 @@
+{
+	"name": "datasettarget",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "rl",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "output1",
+				"fileSystem": "salesinput2022"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
